@@ -1,0 +1,26 @@
+{
+  "name": "todo-list-challenge",
+  "version": "1.0.0",
+  "description": "To Do List Web App",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "keywords": [],
+  "author": "emmeelite",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "ejs": "^3.1.9",
+    "express": "^4.18.2",
+    "express-flash": "^0.0.2",
+    "express-session": "^1.17.3",
+    "passport": "^0.6.0",
+    "passport-local": "^1.0.0",
+    "pg": "^8.11.3"
+  },
+  "engines": {
+    "node": "18.x"
+  }
+}

@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ToDo List - Sign Up</title>
+    <link rel="stylesheet" href="styles/style.css">
+</head>
+<body>
+
+    <% if (messages.error) { %>
+        <div class="flash-message error">
+            <p class="flash-error"><%= messages.error %></p>
+        </div>
+    <% } %>
+
+    <div class="signup-container">
+        <div class="form-container">
+            <h1 class="signup-title">Sign Up</h1>
+            <form action="/register" method="post" class="signup-form">
+                <div class="name-inputs">
+                    <div class="input-container">
+                        <input type="text" name="firstName" id="firstname" placeholder="First Name" required>
+                        <em><p class="error-input-text auth-text fname-text">Insert first name.</p></em>
+                    </div>
+                    <div class="input-container">
+                        <input type="text" name="lastName" id="lastname" placeholder="Last Name" required>
+                        <em><p class="error-input-text auth-text lname-text">Insert last name.</p></em>
+                    </div>
+                </div>
+                <div class="input-container">
+                    <input type="text" name="username" id="username" placeholder="Username" required>
+                    <em><p class="error-input-text auth-text user-text">Insert a username.</p></em>
+                </div>
+                <div class="input-container">
+                    <input type="email" name="email" id="email" placeholder="Email" required>
+                    <em><p class="error-input-text auth-text email-text">Provide a valid email.</p></em>
+                </div>
+                <div class="input-container">
+                    <input type="password" name="password" id="password" placeholder="Password" required>
+                    <em><p class="error-input-text auth-text pw-text">Insert a password.</p></em>
+                </div>
+                <button class="signup-button" type="submit">Sign Up</button>
+            </form>
+            <p class="signup-text">Already have an account? <a href="/login" class="signup-link">Log In</a></p>
+        </div>
+    </div>
+
+    <script>
+        const flashMessage = document.querySelector('.flash-message');
+
+        const firstNameInput = document.querySelector('#firstname');
+        const lastNameInput = document.querySelector('#lastname');
+        const usernameInput = document.querySelector('#username');
+        const emailInput = document.querySelector('#email');
+        const passwordInput = document.querySelector('#password');
+        const signupButton = document.querySelector('.signup-button');
+        const firstNameErrorText = document.querySelector('.fname-text');
+        const lastNameErrorText = document.querySelector('.lname-text');
+        const usernameErrorText = document.querySelector('.user-text');
+        const emailErrorText = document.querySelector('.email-text');
+        const passwordErrorText = document.querySelector('.pw-text');
+
+        // Validate input animation
+        signupButton.addEventListener('click', (e) => {
+            if (firstNameInput.value === "") {
+                e.preventDefault();
+                firstNameInput.style.border = '1px solid hsl(0, 100%, 74%)';
+                firstNameInput.style.animation = 'shake .3s ease';
+                firstNameErrorText.style.display = 'block';
+            }
+            if (lastNameInput.value === "") {
+                e.preventDefault();
+                lastNameInput.style.border = '1px solid hsl(0, 100%, 74%)';
+                lastNameInput.style.animation = 'shake .3s ease';
+                lastNameErrorText.style.display = 'block';
+            }
+            if (usernameInput.value === "") {
+                e.preventDefault();
+                usernameInput.style.border = '1px solid hsl(0, 100%, 74%)';
+                usernameInput.style.animation = 'shake .3s ease';
+                usernameErrorText.style.display = 'block';
+            }
+            if (emailInput.value === "" || !(emailInput.value.includes('@'))) {
+                e.preventDefault();
+                emailInput.style.border = '1px solid hsl(0, 100%, 74%)';
+                emailInput.style.animation = 'shake .3s ease';
+                emailErrorText.style.display = 'block';
+            }
+            if (passwordInput.value === "") {
+                e.preventDefault();
+                passwordInput.style.border = '1px solid hsl(0, 100%, 74%)';
+                passwordInput.style.animation = 'shake .3s ease';
+                passwordErrorText.style.display = 'block';
+            }
+        });
+
+        firstNameInput.addEventListener('focus', () => {
+            firstNameInput.style.border = '1px solid hsl(179, 62%, 43%)';
+            firstNameErrorText.style.display = 'none';
+        });
+        lastNameInput.addEventListener('focus', () => {
+            lastNameInput.style.border = '1px solid hsl(179, 62%, 43%)';
+            lastNameErrorText.style.display = 'none';
+        });
+        usernameInput.addEventListener('focus', () => {
+            usernameInput.style.border = '1px solid hsl(179, 62%, 43%)';
+            usernameErrorText.style.display = 'none';
+        });
+        emailInput.addEventListener('focus', () => {
+            emailInput.style.border = '1px solid hsl(179, 62%, 43%)';
+            emailErrorText.style.display = 'none';
+        });
+        passwordInput.addEventListener('focus', () => {
+            passwordInput.style.border = '1px solid hsl(179, 62%, 43%)';
+            passwordErrorText.style.display = 'none';
+        });
+    
+        // Hide flash message after 5 seconds
+        if (flashMessage) {
+            setTimeout(() => {
+                flashMessage.style.display = 'none';
+            }, 5000);
+        }
+    </script>
+
+</body>
+</html>

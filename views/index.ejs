@@ -1,0 +1,38 @@
+<%- include("partials/header-index.ejs") %>
+
+    <main class="hero-container main">
+        <div class="hero-intro">
+            <h1 class="hero-title"><span>Organize</span> and <span>plan</span> your time and activities in the 
+                <span><em>BEST</em></span> possible way.</h1>
+            <p class="hero-desc">With ToDo List&copy; you can organize and manage your reminders WHERE 
+                and WHENEVER you want, in an easy, intuitive and fast way.</p>
+        </div>
+        <div class="hero-image">
+            <img src="/images/hero-image.svg" alt="Hero Image">
+        </div>
+    </main>
+    <main class="hero-container">
+        <div class="hero-intro second">
+            <h1 class="hero-title">Do you want to keep your daily life and work <span>separate</span>? <br> No problem, <em>we got you!</em></h1>
+            <p class="hero-desc">You can manage your work reminders completely separately from the rest, 
+                so you will have everything organized and avoid confusion.</p>
+        </div>
+        <div class="hero-image first">
+            <img src="/images/hero-image-work.svg" alt="Hero Image">
+        </div>
+    </main>
+
+    <script>
+        const hamburger = document.querySelector('.hamburger-container');
+        const bars = document.querySelectorAll('.bar');
+        const navLinksMobile = document.querySelector('.nav-links-mobile');
+
+        hamburger.addEventListener('click', () => {
+            navLinksMobile.classList.toggle('visible-flex');
+            bars.forEach(bar => {
+                bar.classList.toggle('toggle');
+            });
+        });
+    </script>
+
+<%- include("partials/footer.ejs") %>

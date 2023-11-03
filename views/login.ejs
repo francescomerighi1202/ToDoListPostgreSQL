@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ToDo List - Log In</title>
+    <link rel="stylesheet" href="styles/style.css">
+</head>
+<body>
+
+    <% if (messages.error) { %>
+    <div class="flash-message error">
+        <p class="flash-error"><%= messages.error %></p>
+    </div>
+    <% } %>
+    
+    <div class="login-container">
+        <div class="form-container">
+            <h1 class="login-title">Log In</h1>
+            <form action="/login" method="post" class="login-form">
+                <div class="input-container">
+                    <input type="email" name="email" id="email" placeholder="Email" required>
+                    <em><p class="error-input-text auth-text email-text">Provide a valid email.</p></em>
+                </div>
+                <div class="input-container">
+                    <input type="password" name="password" id="password" placeholder="Password" required>
+                    <em><p class="error-input-text auth-text pw-text">Insert a password.</p></em>
+                </div>
+                <button class="login-button" type="submit">Log In</button>
+            </form>
+            <p class="login-text">Don't have an account? <a href="/register" class="login-link">Sign Up</a></p>
+        </div>
+    </div>
+
+    <script>
+        const flashMessage = document.querySelector('.flash-message');
+
+        const emailInput = document.querySelector('#email');
+        const passwordInput = document.querySelector('#password');
+        const loginButton = document.querySelector('.login-button');
+        const emailErrorText = document.querySelector('.email-text');
+        const passwordErrorText = document.querySelector('.pw-text');
+
+        // Validate input animation
+        loginButton.addEventListener('click', (e) => {
+            if (emailInput.value === "" || !(emailInput.value.includes('@'))) {
+                e.preventDefault();
+                emailInput.style.border = '1px solid hsl(0, 100%, 74%)';
+                emailInput.style.animation = 'shake .3s ease';
+                emailErrorText.style.display = 'block';
+            }
+            if (passwordInput.value === "") {
+                e.preventDefault();
+                passwordInput.style.border = '1px solid hsl(0, 100%, 74%)';
+                passwordInput.style.animation = 'shake .3s ease';
+                passwordErrorText.style.display = 'block';
+            }
+        });
+
+        emailInput.addEventListener('focus', () => {
+            emailInput.style.border = '1px solid hsl(179, 62%, 43%)';
+            emailErrorText.style.display = 'none';
+        });
+        passwordInput.addEventListener('focus', () => {
+            passwordInput.style.border = '1px solid hsl(179, 62%, 43%)';
+            passwordErrorText.style.display = 'none';
+        });
+    
+        // Hide flash message after 5 seconds
+        if (flashMessage) {
+            setTimeout(() => {
+                flashMessage.style.display = 'none';
+            }, 5000);
+        }
+    </script>
+
+</body>
+</html>

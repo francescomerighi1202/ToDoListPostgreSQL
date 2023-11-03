@@ -1,0 +1,87 @@
+<%- include("partials/header-home.ejs") %>
+
+    <main class="home-container">
+        <div class="intro-content">
+            <h1 class="intro-title">Hello, <span><%= user.firstname %></span></h1>
+            <div class="profile">
+                <p class="intro-username"><%= user.username %></p>
+                <i class="fa-solid fa-user" style="color: hsl(179, 62%, 43%);"></i>
+            </div>
+            <div class="logout">
+                <a href="/logout" class="logout-link">Log Out</a>
+            </div>
+        </div>
+
+        <div class="select-type">
+            <a href="/home" class="select-link">Personal</a>
+            <a href="/work" class="select-link active">Work</a>
+        </div>
+
+        <div class="create-todo">
+            <form action="/work/create" method="post" class="create-todo-form">
+                <input type="text" name="todo" id="todo" placeholder="Create a new todo..." required>
+                <button class="create-todo-button" type="submit">Add</button>
+                <em><p class="error-input-text todo-text">Insert something.</p></em>
+            </form>
+        </div>
+
+        <div class="todo-container">
+            <% if (todos && todos.length > 0) { %>
+                <% todos.forEach((todo) => { %>
+                    <div class="todo-complete">
+                        <p class="todo"><%= todo.text %></p>
+                        <form action="/work/delete" method="post">
+                            <input type="hidden" name="id" value="<%= todo.id %>">
+                            <button class="delete-todo" type="submit"><i class="fa-solid fa-check"></i></button>
+                        </form>
+                    </div>
+                <% }); %>
+            <% } else { %>
+                <p class="no-todo">No todos yet.</p>
+            <% } %>
+        </div>
+
+        <div class="complete-all">
+            <form action="/work/deleteAll" method="post" class="complete-all-form">
+                <button class="complete-all-button" type="submit">Complete All</button>
+            </form>
+        </div>
+    </main>
+
+    <script>
+        const logout = document.querySelector('.logout');
+        const profile = document.querySelector('.profile');
+
+        const todoInput = document.querySelector('#todo');
+        const todoButton = document.querySelector('.create-todo-button');
+        const errorText = document.querySelector('.error-input-text');
+
+        // Validate input animation
+        todoButton.addEventListener('click', (e) => {
+            if (todoInput.value === "") {
+                e.preventDefault();
+                todoInput.style.border = '1px solid hsl(0, 100%, 74%)';
+                todoInput.style.animation = 'shake .3s ease';
+                errorText.style.display = 'block';
+            }
+        });
+
+        todoInput.addEventListener('focus', () => {
+            todoInput.style.border = '1px solid hsl(179, 62%, 43%)';
+            errorText.style.display = 'none';
+        });
+
+        // Logout dropdown
+        document.addEventListener('click', (e) => {
+            if (!profile.contains(e.target) && !logout.contains(e.target)) {
+                logout.classList.remove('visible');
+            }
+        });
+
+        profile.addEventListener('click', (e) => {
+            e.stopPropagation();
+            logout.classList.toggle('visible');
+        });
+    </script>
+
+<%- include("partials/footer.ejs") %>
