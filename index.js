@@ -5,14 +5,19 @@ import bcrypt from 'bcrypt';
 import pg from 'pg';
 import passport from 'passport';
 import LocalStrategy from 'passport-local';
+import dotenv from 'dotenv';
 
+// Load environment variables
+dotenv.config();
+
+// Express app configuration
 const app = express();
 const port = process.env.PORT || 3000;
 
 // Database client connection
 const db = new pg.Client({
     user: 'postgres',
-    password: 'admin69',
+    password: process.env.DB_PW,
     host: 'localhost',
     port: 5432,
     database: 'todo-list'
@@ -24,7 +29,7 @@ app.use(express.static('public'));
 app.use(flash());
 
 app.use(session({
-    secret: 'casual-secret-key-123456',
+    secret: process.env.SESSION,
     resave: false,
     saveUninitialized: false
 }));
